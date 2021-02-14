@@ -39,8 +39,6 @@ inputs:
 outputs:
   tf_actions_output:
     description: 'The Terragrunt outputs in JSON format.'
-  tf_actions_plan_has_changes:
-    description: 'Whether or not the Terragrunt plan contained changes.'
   tf_actions_plan_output:
     description: 'The Terragrunt plan output.'
   tf_actions_fmt_written:
