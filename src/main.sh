@@ -69,6 +69,11 @@ function parseInputs {
     tfFmtWrite=1
   fi
 
+  tfRunAll=""
+  if [ "${INPUT_TF_ACTIONS_RUN_ALL}" == "1" ] || [ "${INPUT_TF_ACTIONS_RUN_ALL}" == "true" ]; then
+    tfRunAll="run-all"
+  fi
+
   tfWorkspace="default"
   if [ -n "${TF_WORKSPACE}" ]; then
     tfWorkspace="${TF_WORKSPACE}"

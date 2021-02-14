@@ -3,7 +3,7 @@
 function terragruntValidate {
   # Gather the output of `terragrunt validate`.
   echo "validate: info: validating Terragrunt configuration in ${tfWorkingDir}"
-  validateOutput=$(${tfBinary} validate ${*} 2>&1)
+  validateOutput=$(${tfBinary} ${tfRunAll} validate ${*} 2>&1)
   validateExitCode=${?}
 
   # Exit code of 0 indicates success. Print the output and exit.
@@ -21,7 +21,7 @@ function terragruntValidate {
 
   # Comment on the pull request if necessary.
   if [ "$GITHUB_EVENT_NAME" == "pull_request" ] && [ "${tfComment}" == "1" ]; then
-    validateCommentWrapper="#### \`${tfBinary} validate\` Failed
+    validateCommentWrapper="#### \`${tfBinary} ${tfRunAll} validate\` Failed
 
 \`\`\`
 ${validateOutput}

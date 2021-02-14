@@ -3,7 +3,7 @@
 function terragruntDestroy {
   # Gather the output of `terragrunt destroy`.
   echo "destroy: info: destroying Terragrunt-managed infrastructure in ${tfWorkingDir}"
-  destroyOutput=$(${tfBinary} destroy -auto-approve -input=false ${*} 2>&1)
+  destroyOutput=$(${tfBinary} ${tfRunAll} destroy -auto-approve -input=false ${*} 2>&1)
   destroyExitCode=${?}
   destroyCommentStatus="Failed"
 
@@ -24,7 +24,7 @@ function terragruntDestroy {
 
   # Comment on the pull request if necessary.
   if [ "$GITHUB_EVENT_NAME" == "pull_request" ] && [ "${tfComment}" == "1" ]; then
-    destroyCommentWrapper="#### \`${tfBinary} destroy\` ${destroyCommentStatus}
+    destroyCommentWrapper="#### \`${tfBinary} ${tfRunAll} destroy\` ${destroyCommentStatus}
 <details><summary>Show Output</summary>
 
 \`\`\`

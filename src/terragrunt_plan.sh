@@ -3,7 +3,7 @@
 function terragruntPlan {
   # Gather the output of `terragrunt plan`.
   echo "plan: info: planning Terragrunt configuration in ${tfWorkingDir}"
-  planOutput=$(${tfBinary} plan -detailed-exitcode -input=false ${*} 2>&1)
+  planOutput=$(${tfBinary} ${tfRunAll} plan -input=false ${*} 2>&1)
   planExitCode=${?}
   planHasChanges=false
   planCommentStatus="Failed"
@@ -44,7 +44,7 @@ function terragruntPlan {
 
   # Comment on the pull request if necessary.
   if [ "$GITHUB_EVENT_NAME" == "pull_request" ] && [ "${tfComment}" == "1" ] && ([ "${planHasChanges}" == "true" ] || [ "${planCommentStatus}" == "Failed" ]); then
-    planCommentWrapper="#### \`${tfBinary} plan\` ${planCommentStatus}
+    planCommentWrapper="#### \`${tfBinary} ${tfRunAll} plan\` ${planCommentStatus}
 <details><summary>Show Output</summary>
 
 \`\`\`
